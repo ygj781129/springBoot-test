@@ -5,6 +5,6 @@ package com.bm.controller;
  */
 public class TestController {
         public static void main(String[] args) {
-
+                String ff="fdfd";
         }
 }
