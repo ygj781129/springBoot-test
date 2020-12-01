@@ -1,0 +1,9 @@
+{
+  "name": "测试文档",
+  "version": "0.1.0",
+  "description": "apiDoc basic example新东西",
+  "apidoc": {
+    "title": "测试啊啊啊啊",
+    "url" : "localhost:8081/"
+  }
+}

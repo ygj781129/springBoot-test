@@ -1,0 +1,7 @@
+{
+  "name": "测试文档",
+  "version": "0.1.0",
+  "description": "apiDoc basic example对对对",
+  "title": "Custom apiDoc browser title  反反复复",
+  "url" : "localhost:8081/"
+}
