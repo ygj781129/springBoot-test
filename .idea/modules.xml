@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/bootmy/bootmy.iml" filepath="$PROJECT_DIR$/bootmy/bootmy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java-guava/java-guava.iml" filepath="$PROJECT_DIR$/java-guava/java-guava.iml" />
+      <module fileurl="file://$PROJECT_DIR$/limitier-redis/limitier-redis.iml" filepath="$PROJECT_DIR$/limitier-redis/limitier-redis.iml" />
+      <module fileurl="file://$PROJECT_DIR$/springBoot-test.iml" filepath="$PROJECT_DIR$/springBoot-test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/springboot-api/springboot-api.iml" filepath="$PROJECT_DIR$/springboot-api/springboot-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/springboot-utils/springboot-utils.iml" filepath="$PROJECT_DIR$/springboot-utils/springboot-utils.iml" />
+      <module fileurl="file://$PROJECT_DIR$/token-bucket/token-bucket.iml" filepath="$PROJECT_DIR$/token-bucket/token-bucket.iml" />
+      <module fileurl="file://$PROJECT_DIR$/token-bucket-redis/token-bucket-redis.iml" filepath="$PROJECT_DIR$/token-bucket-redis/token-bucket-redis.iml" />
+    </modules>
+  </component>
+</project>

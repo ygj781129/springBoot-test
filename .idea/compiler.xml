@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="bootmy" />
+        <module name="java-guava" />
+        <module name="limitier-redis" />
+        <module name="springboot-api" />
+        <module name="springboot-utils" />
+        <module name="token-bucket" />
+        <module name="token-bucket-redis" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel target="8">
+      <module name="bootmy" target="1.8" />
+      <module name="java-guava" target="1.8" />
+      <module name="limitier-redis" target="1.8" />
+      <module name="springboot-api" target="1.8" />
+      <module name="springBoot-test" target="1.5" />
+      <module name="springboot-utils" target="1.8" />
+      <module name="token-bucket" target="1.8" />
+      <module name="token-bucket-redis" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
