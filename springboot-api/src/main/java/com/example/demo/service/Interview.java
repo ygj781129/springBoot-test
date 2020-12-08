@@ -5,6 +5,7 @@ import com.example.demo.mapper.test01.TNavigationMapper;
 import com.example.demo.pojo.Student;
 import com.example.demo.pojo.TNavigation;
 import com.example.demo.pojo.TNavigationExample;
+import com.example.demo.util.MD5Util;
 import com.google.common.collect.Lists;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -53,7 +54,7 @@ public class Interview {
 
         }
 
-        public static void main(String[] args) {
+        public static void main000(String[] args) {
 //orElse 有，就用自身值。  为null，就用orElse后面的值。
 //有正品用正品，没正品用替代品
                 //System.out.println(Optional.ofNullable(null).orElse("ffdfd"));  // orElse
@@ -172,5 +173,14 @@ public class Interview {
                 }
         }
 
+
+        @Test
+        public void ggg5t(){
+
+        }
+
+        public static void main(String[] args) {
+
+        }
 
 }

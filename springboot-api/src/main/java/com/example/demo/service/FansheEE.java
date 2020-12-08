@@ -4,6 +4,7 @@ import com.example.demo.pojo.Demo;
 import com.example.demo.pojo.Member;
 import com.example.demo.pojo.MemberView;
 import com.example.demo.pojo.Student;
+import com.example.demo.util.MD5Util;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import java.lang.reflect.*;
@@ -20,10 +21,16 @@ import java.util.Map;
 public class FansheEE {
 
 
+        public static void main(String[] args) {
+                System.out.println(MD5Util.getMD52("123456"));
+                System.out.println(MD5Util.MD5("123456"));
+                System.out.println(MD5Util.getMD53("123456",false,32));
+        }
+
         /**
          * @param args
          */
-        public static void main(String[] args) {
+        public static void main5555(String[] args) {
                  System.out.println(RandomStringUtils.random(20, 0x4e00, 0x9fa5, false,false));
         }
 

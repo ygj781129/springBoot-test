@@ -97,13 +97,14 @@ public class XjbTestController {
     }
 
     @PostMapping("/gg")
-    public void findxJB(@RequestBody Svo svo){
+    public JsonFormat findxJB(@RequestBody Svo svo){
 
         List<fg>list=svo.getKeyValVos();
 
         for (fg valVo:list){
             System.out.println(valVo.getKey()+"--------"+valVo.getVal()+"---"+svo.getDid());
         }
+            return JsonFormat.success(svo);
     }
 
     @Autowired
