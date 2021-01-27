@@ -1,7 +1,7 @@
 package com.example.demo.util;
 
 
-import java.nio.channels.NonWritableChannelException;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -13,11 +13,10 @@ import org.joda.time.Days;
 import org.joda.time.Duration;
 import org.joda.time.Interval;
 import org.joda.time.LocalDate;
-import org.joda.time.LocalDate.Property;
+
 import org.joda.time.Period;
 import org.joda.time.PeriodType;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
+
 
 /**
  * Created by fb on 2020/4/20
@@ -172,6 +171,17 @@ public class JodaTime {
                 int second = dt.getSecondOfDay();
                 //获取当前时间的毫秒
                 long millis = dt.getMillis();
+
+
+
+                LocalDate date = new LocalDate("2021-01-01");
+                System.out.println("一年中最小的一天"+date.dayOfYear().withMinimumValue());
+                System.out.println("年号"+date.getYear());
+                System.out.println("一年中的第几个月"+date.getMonthOfYear());
+                System.out.println("一年中的第几周" + date.getWeekOfWeekyear());
+                System.out.println("一年中的第几周的那个年" + date.weekyear().get());
+                System.out.println("星期几"+date.getDayOfWeek());
+                System.out.println("一年中的第几周" + date.getCenturyOfEra());
 
         }
 

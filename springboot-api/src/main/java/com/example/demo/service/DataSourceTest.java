@@ -3,10 +3,7 @@ package com.example.demo.service;
 import com.example.demo.mapper.test01.TNavigationMapper;
 import com.example.demo.mapper.test02.personInforMapper;
 import com.example.demo.mapper.test03.TonlineUserMapper;
-import com.example.demo.pojo.TNavigation;
-import com.example.demo.pojo.TonlineUser;
-import com.example.demo.pojo.TonlineUserExample;
-import com.example.demo.pojo.personInfor;
+import com.example.demo.pojo.*;
 import com.example.demo.vo.KeyValVo;
 
 import org.assertj.core.util.Lists;
@@ -86,6 +83,15 @@ public class DataSourceTest {
                         }
 
 
+        }
+
+        public List<personInfor> finddd(String name){
+                personInforExample query=new personInforExample();
+                personInforExample.Criteria criteria=query.createCriteria();
+                criteria.andNameEqualTo(name);
+                criteria.andAgeEqualTo(555);
+                List<personInfor> list=personInforMapper.selectByExample(query);
+               return list;
         }
 
 

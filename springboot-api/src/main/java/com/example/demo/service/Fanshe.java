@@ -2,10 +2,15 @@ package com.example.demo.service;
 
 import com.example.demo.pojo.Demo;
 import com.example.demo.pojo.Student;
-import org.joda.time.LocalDate;
+
 
 import java.lang.reflect.*;
 import java.security.MessageDigest;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -200,7 +205,7 @@ public class Fanshe {
 
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void maineeee(String[] args) throws Exception {
 //
 //        Student student = new Student();
 //        student.setName("454545");
@@ -210,7 +215,43 @@ public class Fanshe {
 //        Object obj = fromDeclaredField.get(student);
 //        Double dataDouble=obj==null?null:Double.parseDouble(obj.toString());
 
-        System.out.println(new LocalDate("2018-01-07").plusDays(1139).toString());
+       // System.out.println(new LocalDate("2018-01-07").plusDays(1139).toString());
 
     }
+
+
+    public static void main(String[] a){
+
+        LocalDate localDate = LocalDate.now();
+        LocalTime localTime = LocalTime.now();
+        //获取当前时间
+        LocalDateTime currentDate =  LocalDateTime.of(2020, 12, 30, 0, 0, 0);
+
+        //获取年份
+        int year = currentDate.getYear();
+        System.out.println("获取当前年份:" + year);
+        //获取月份
+        int month = currentDate.getMonthValue();
+        System.out.println("获取当前月份:" + month);
+        //获取当前周
+        int week = currentDate.getDayOfWeek().getValue();
+        System.out.println("获取当前周:" + week);
+        //获取当前时间第X周
+        /*
+        public static WeekFields of​(DayOfWeek firstDayOfWeek, int minimalDaysInFirstWeek)
+        从第一天和最小日期获得WeekFields的实例。
+        第一天的每周定义ISO DayOfWeek ，即一周中的第一天。 第一周的最小天数定义一个月或一年中必须存在的天数，从第一天开始，在将一周计算为第一周之前。 值1将计算作为第一周的一部分的月或年的第一天，而值7将要求整个七天在新的月或年中。
+
+        WeekFields实例是单例; 对于firstDayOfWeek和minimalDaysInFirstWeek的每个唯一组合，将返回相同的实例。
+
+        参数
+        firstDayOfWeek - 一周的第一天，不是null
+        minimalDaysInFirstWeek - 第一周的最小天数，从1到7
+         */
+//        WeekFields weekFields = WeekFields.of(DayOfWeek.MONDAY,1);
+//        int weeks = currentDate.get(weekFields.weekOfYear());
+//        System.out.println("获取当前时间第" + weeks + "周");
+
     }
+
+}

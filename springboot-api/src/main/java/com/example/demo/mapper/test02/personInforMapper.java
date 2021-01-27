@@ -3,6 +3,8 @@ package com.example.demo.mapper.test02;
 import com.example.demo.pojo.personInfor;
 import com.example.demo.pojo.personInforExample;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.cursor.Cursor;
 
 import java.util.List;
 
@@ -94,4 +96,12 @@ public interface personInforMapper {
      * @mbg.generated Thu Jun 04 09:19:22 CST 2020
      */
     int updateByPrimaryKey(personInfor record);
+
+    @Select("select * from person_infor")
+    Cursor<personInfor> scan();
+
+    @Select("select * from person_infor where name= ${name}")
+    List<personInfor> scanll(@Param("name") String name);
+
+
 }

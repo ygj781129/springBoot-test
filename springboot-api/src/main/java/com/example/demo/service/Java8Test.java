@@ -7,14 +7,20 @@ import com.example.demo.vo.SortKeyValVo;
 import com.google.common.collect.Lists;
 
 import org.joda.time.*;
+import org.joda.time.format.DateTimeFormat;
 
 import javax.annotation.Resource;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.WeekFields;
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.time.LocalDateTime;
+
 
 /**
  * Created by Administrator on 2019/10/11.
@@ -310,13 +316,14 @@ public class Java8Test {
     }
 
 
-    public static void main999 (String[] args) {
-        String date="2019-12-30";
+    public static void main33333  (String[] args) {
+        System.out.println(getReacherDateByYearAndWeek(2020,1,"yyyy-MM-dd"));
+        String date="2020-12-31";
         Map<String,Integer> result =  new HashMap<String,Integer>();
         Calendar cal = Calendar.getInstance();
 
         //设置一周的开始,默认是周日,这里设置成星期一
-        cal.setFirstDayOfWeek(Calendar.MONDAY);
+        //cal.setFirstDayOfWeek(Calendar.MONDAY);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat formatMon = new SimpleDateFormat("MM");
         SimpleDateFormat formatYear = new SimpleDateFormat("yyyy");
@@ -338,11 +345,28 @@ public class Java8Test {
         }else{
             result.put("year", year);
         }
-System.out.println(result.get("year")+"---"+result.get("week"));
-
+        System.out.println(result.get("year")+"---"+result.get("week"));
+        //
     }
 
-    public static void main(String[] args) {
+    public static String getFirdayByYearAndWeek(int year,int week,String format){
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        Calendar cal = Calendar.getInstance();
+        Calendar cal1 = Calendar.getInstance();
+        cal1.set(Calendar.YEAR,year);
+        cal1.set(Calendar.DAY_OF_YEAR,1);
+        if (cal1.get(Calendar.DAY_OF_WEEK)==Calendar.WEDNESDAY){
+            week=week+1;
+        }
+        cal.set(Calendar.YEAR,year);
+        cal.set(Calendar.WEEK_OF_YEAR, week);
+        cal.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);// 周五
+
+        return sdf.format(cal.getTime());
+    }
+
+
+    public static void main88(String[] args) {
         LocalDate startDate = new LocalDate("2019-12-08");
         LocalDate endDate = new LocalDate("2020-01-19");
 
@@ -360,11 +384,71 @@ System.out.println(result.get("year")+"---"+result.get("week"));
         }
     }
 
-    static int REARCH_DATE_WEEK=1;
-    public static void main422244(String[] args) {
-        int year=2020;
-        int week=1;
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+
+
+    public static void main88888(String[] args) throws Exception{
+//        int string=new DateTime().withYear(2016).weekOfWeekyear().getMaximumValue();
+//        int string1=new DateTime().withWeekyear(2016).weekOfWeekyear().getMaximumValue();
+//        System.out.println(string);
+//        System.out.println(string1);
+//        System.out.println(getReacherDateByYearAndWeek(2017,1,"yyyy-MM-dd"));
+
+
+
+        String today = "2016-12-31";
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = null;
+        try {
+            date = format.parse(today);
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setFirstDayOfWeek(Calendar.SUNDAY);
+        calendar.setTime(date);
+
+        System.out.println(calendar.get(Calendar.WEEK_OF_YEAR));
+//        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+//        String s1="2016-12-20";
+//        String s2="2017-01-08";
+//        Date date1=format.parse(s1);
+//        Date date2=format.parse(s2);
+//        List<String[]> weekList =getWeekList(date1,date2);
+//        for (String[] strings : weekList) {
+//            for (String string : strings) {
+//                System.out.println(string);
+//            }
+//        }
+
+    }
+
+    public static List<String[]> getWeekList(Date startDate,Date endDate){
+        List<String[]> weekList = new ArrayList<>();
+        //转换成joda-time的对象
+        DateTime firstDay = new DateTime(startDate).dayOfWeek().withMinimumValue();
+        DateTime lastDay = new DateTime(endDate).dayOfWeek().withMaximumValue();
+        //计算两日期间的区间天数
+        Period p = new Period(firstDay, lastDay, PeriodType.days());
+        int days = p.getDays();
+        if (days > 0){
+            int weekLength = 7;
+            for(int i=0;i<days;i=i+weekLength){
+                String monDay = firstDay.plusDays(i).toString("yyyy-MM-dd");
+                String sunDay = firstDay.plusDays(i+6).toString("yyyy-MM-dd");
+                String [] week = {monDay,sunDay};
+                weekList.add(week);
+            }
+        }
+        return weekList;
+    }
+
+
+    public static String getReacherDateByYearAndWeek(int year,int week,String format){
+
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
         Calendar cal = Calendar.getInstance();
         Calendar cal1 = Calendar.getInstance();
         cal1.set(Calendar.YEAR,year);
@@ -372,10 +456,11 @@ System.out.println(result.get("year")+"---"+result.get("week"));
         if (cal1.get(Calendar.DAY_OF_WEEK)==Calendar.SATURDAY){
             week=week+1;
         }
+        cal.setFirstDayOfWeek(Calendar.SUNDAY);
         cal.set(Calendar.YEAR,year);
         cal.set(Calendar.WEEK_OF_YEAR, week);
 
-
+        int REARCH_DATE_WEEK=3;
         //获取周一
         if(REARCH_DATE_WEEK==1){
             cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
@@ -404,7 +489,206 @@ System.out.println(result.get("year")+"---"+result.get("week"));
         if(REARCH_DATE_WEEK==7){
             cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
         }
-System.out.println(sdf.format(cal.getTime()));
+
+        return sdf.format(cal.getTime());
 
     }
+
+    public static void main55(String[] args) {
+        System.out.println(getReacherDateByYearAndWeek(2021,1,"yyyy-MM-dd"));
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar instanceBegin = Calendar.getInstance();
+        instanceBegin.set(Calendar.YEAR,2019);
+        instanceBegin.set(Calendar.WEEK_OF_YEAR,50);
+        instanceBegin.set(Calendar.DAY_OF_WEEK,Calendar.WEDNESDAY);
+         Date beginTime = instanceBegin.getTime();
+        Calendar instanceEnd = Calendar.getInstance();
+        instanceEnd.set(Calendar.YEAR,2021);
+        instanceEnd.set(Calendar.WEEK_OF_YEAR,2);
+        instanceEnd.set(Calendar.DAY_OF_WEEK,Calendar.WEDNESDAY);
+        Date endTime = instanceEnd.getTime();
+        while(beginTime.before(endTime)||beginTime.equals(endTime)){
+            Calendar instance = Calendar.getInstance();
+            instance.setTime(beginTime);
+            int month = instance.get(Calendar.MONTH)+1;
+            int year = instance.get(Calendar.YEAR);
+            int week = instance.get(Calendar.WEEK_OF_YEAR);
+                Calendar yyy = Calendar.getInstance();
+                yyy.setTime(beginTime);
+                yyy.set(Calendar.DAY_OF_WEEK,Calendar.SATURDAY);
+                int satYear=yyy.get(Calendar.YEAR);
+                //System.out.println("周六"+sdf.format(yyy.getTime()));
+          if(satYear!=year){
+              Calendar qq = Calendar.getInstance();
+              qq.setTime(beginTime);
+              qq.set(Calendar.DAY_OF_WEEK,Calendar.WEDNESDAY);
+              qq.add(Calendar.WEEK_OF_YEAR,-1);
+              week = qq.get(Calendar.WEEK_OF_YEAR)+1;
+          }
+
+            System.out.println(year+"--------"+week);
+
+            System.out.println("周三"+sdf.format(instance.getTime()));
+        instanceBegin.add(Calendar.WEEK_OF_YEAR,1);
+        beginTime = instanceBegin.getTime();
+    }
+
+}
+
+    public static void main555(String[] args) {
+        //DateTime dtFr = new DateTime(2012,1,11,DateTimeZone.forTimeZone(TimeZone.getTimeZone("Europe/Paris")));
+        //DateTime dtUS = new DateTime(2012,DateTimeZone.forTimeZone(TimeZone.getTimeZone("US/Arizona")));
+        DateTime dtUS=new DateTime("2020-12-31");
+        System.out.println(dtUS.weekyear().get());
+        System.out.println( dtUS.getWeekOfWeekyear());
+        System.out.println(getReacherDateByYearAndWeek(2021,1,"yyyy-MM-dd"));
+        System.out.println(dtUS.withWeekOfWeekyear(52));
+        List<String[]> weekList = new ArrayList<>();
+        //转换成joda-time的对象
+        DateTime firstDay = new DateTime("2020-12-30").dayOfWeek().withMinimumValue();
+        DateTime lastDay = new DateTime("2021-01-10").dayOfWeek().withMaximumValue();
+
+        //计算两日期间的区间天数
+        Period p = new Period(firstDay, lastDay, PeriodType.days());
+        int days = p.getDays();
+        if (days > 0) {
+            int weekLength = 7;
+            for (int i = 0; i < days; i = i + weekLength) {
+                String wensday = firstDay.plusDays(i+2).toString("yyyy-MM-dd");
+                //String sunDay = firstDay.plusDays(i + 6).toString("yyyy-MM-dd");
+//                String[] week = {monDay, sunDay};
+//                weekList.add(week);
+                //System.out.println(wensday);
+            }
+        }
+        }
+
+    /**
+     * 传入一个年份 例如2020
+     * 获得这一年中所有的周三日期集合
+     * @param args
+     */
+    public static void main1111(String[] args) {
+        String year="2021";
+        String sdate="-01-01";
+        String edate="-12-31";
+        sdate=year+sdate;//指定年的第一天
+        edate=year+edate;//指定年的最后一天
+        LocalDate lastDay = new LocalDate(edate);
+        //指定年第一天所在周的周三---所在周的周三
+        LocalDate firstWednesDay =new LocalDate(sdate).withDayOfWeek(3);
+        String fwdStr=firstWednesDay.toString();
+        System.out.println(fwdStr);
+        //指定年第一天所在周的周三所在的年
+        String firstWednesDayYear=firstWednesDay.getYear()+"";
+        if(!firstWednesDayYear.equals(year)){
+            //如果指定年第一天所在周的周三所在的年 与 输入的年 不同（说明第一天的周三在上一年）
+            //那么实际上这一年第一个周三在下一周
+            firstWednesDay=firstWednesDay.plusDays(7);
+        }
+        System.out.println(firstWednesDayYear);
+        System.out.println(firstWednesDay.toString("yyyy-MM-dd"));
+        //本年第一个周三和本年最后一天中间有多少天
+        Period p = new Period(firstWednesDay, lastDay, PeriodType.days());
+        int days = p.getDays();
+        if (days > 0) {
+            //一周七天
+            int weekLength = 7;
+            //第几个周三
+            int index=1;
+            for (int i = 0; i < days; i = i + weekLength) {
+                String wensday = firstWednesDay.plusDays(i).toString("yyyy-MM-dd");
+//                weekList.add(week);
+                System.out.println("第"+index+"----"+wensday);
+                index+=1;
+            }
+        }
+
+
+    }
+
+
+    public static void main(String[] args) {
+//        String jsonString = "{\"treeName\":\"666666\",\"parentId\":\"2020103001104044621542\"}";
+//        if (jsonString != null) {
+//
+//        }
+//        if (jsonString == null) {
+//
+//        }
+//        if (1 == 1) {
+//        }
+//
+//
+//        for (int i = 0; i <5 ; i++) {
+//
+//        }
+        LocalDate sdate=new LocalDate("2020-12-29");
+        LocalDate edate=new LocalDate("2021-01-15");
+        //System.out.println(Days.daysBetween(sdate, edate).getDays() + " 天 ");
+        int no=Days.daysBetween(sdate, edate).getDays();
+        LocalDate date=null;
+        List<String> list=Lists.newArrayList();
+        for (int i = 0; i <=no ; i++) {
+            date=sdate.plusDays(i);
+           // System.out.println(date.toString());
+            list.add(date.toString());
+//            if(date.isEqual(edate)){
+//                break;
+//            }
+        }
+        list.forEach(System.out::println);
+
+
+        // \u000d System.out.println("wmyskxz is awesome!");
+//        int n=3;
+//        n=n << 2;
+//        System.out.println(n);
+//        Set<String> set = new HashSet<String>() {{
+//            add("wmyskxz");
+//            add("is");
+//            add("awesome");
+//            add("!");
+//        } };
+//        System.out.println("----" + date.weekyear().get());
+//        System.out.println("----" + date.getWeekOfWeekyear());
+
+//        System.out.println(
+//                String.format( "min:%s, max:%s",DateTime.now().dayOfYear().withMinimumValue().toString("yyyy-MM-dd")
+//                        ,DateTime.now().dayOfYear().withMaximumValue().toString("yyyy-MM-dd")));
+//    }
+    }
+
+    public static void main8886688(String[] a){
+
+
+        //获取当前时间
+        LocalDateTime currentDate = LocalDateTime.now();
+        //获取年份
+        int year = currentDate.getYear();
+        System.out.println("获取当前年份:" + year);
+        //获取月份
+        int month = currentDate.getMonthValue();
+        System.out.println("获取当前月份:" + month);
+        //获取当前周
+        int week = currentDate.getDayOfWeek().getValue();
+        System.out.println("获取当前周:" + week);
+        //获取当前时间第X周
+        /*
+        public static WeekFields of​(DayOfWeek firstDayOfWeek, int minimalDaysInFirstWeek)
+        从第一天和最小日期获得WeekFields的实例。
+        第一天的每周定义ISO DayOfWeek ，即一周中的第一天。 第一周的最小天数定义一个月或一年中必须存在的天数，从第一天开始，在将一周计算为第一周之前。 值1将计算作为第一周的一部分的月或年的第一天，而值7将要求整个七天在新的月或年中。
+
+        WeekFields实例是单例; 对于firstDayOfWeek和minimalDaysInFirstWeek的每个唯一组合，将返回相同的实例。
+
+        参数
+        firstDayOfWeek - 一周的第一天，不是null
+        minimalDaysInFirstWeek - 第一周的最小天数，从1到7
+         */
+        WeekFields weekFields = WeekFields.of(DayOfWeek.MONDAY,1);
+        int weeks = currentDate.get(weekFields.weekOfYear());
+        System.out.println("获取当前时间第" + weeks + "周");
+
+    }
+
 }
