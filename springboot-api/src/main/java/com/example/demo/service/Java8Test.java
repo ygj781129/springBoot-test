@@ -2,8 +2,15 @@ package com.example.demo.service;
 
 import com.example.demo.mapper.HMedicalExamineMapper;
 import com.example.demo.pojo.KeyValVo;
+import com.example.demo.pojo.Student;
+import com.example.demo.pojo.UserInfo;
 import com.example.demo.util.LunarSolarConverter;
 import com.example.demo.vo.SortKeyValVo;
+import com.example.demo.vo.UserLoginLogVo;
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
+import com.github.benmanes.caffeine.cache.LoadingCache;
+import com.github.benmanes.caffeine.cache.RemovalListener;
 import com.google.common.collect.Lists;
 
 import org.joda.time.*;
@@ -11,12 +18,14 @@ import org.joda.time.format.DateTimeFormat;
 
 import javax.annotation.Resource;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.WeekFields;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.time.LocalDateTime;
@@ -568,7 +577,7 @@ public class Java8Test {
      * 获得这一年中所有的周三日期集合
      * @param args
      */
-    public static void main1111(String[] args) {
+    public static void main1111555(String[] args) {
         String year="2021";
         String sdate="-01-01";
         String edate="-12-31";
@@ -608,7 +617,7 @@ public class Java8Test {
     }
 
 
-    public static void main(String[] args) {
+    public static void main1111(String[] args) {
 //        String jsonString = "{\"treeName\":\"666666\",\"parentId\":\"2020103001104044621542\"}";
 //        if (jsonString != null) {
 //
@@ -691,4 +700,174 @@ public class Java8Test {
 
     }
 
+
+    public static void main852(String[] args) {
+        Cache<String, UserInfo> cache = Caffeine.newBuilder()
+                // 数量上限
+                .maximumSize(1024)
+                // 过期机制
+                .expireAfterWrite(5, TimeUnit.MINUTES)
+                // 弱引用key
+                .weakKeys()
+                // 弱引用value
+                .weakValues()
+                // 剔除监听
+                .removalListener((RemovalListener<String, UserInfo>) (key, value, cause) ->
+                        System.out.println("key:" + key + ", value:" + value + ", 删除原因:" + cause.toString()))
+                .build();
+        // 将数据放入本地缓存中
+        //cache.put("username", "afei");
+        //cache.put("password", "123456");
+        UserInfo userInfo=new UserInfo();
+        userInfo.setAge(33);
+        userInfo.setName("小明");
+        userInfo.setId(3);
+        cache.put("222", userInfo);
+
+
+        UserInfo a=cache.getIfPresent("username");
+// 从本地缓存中取出数据
+        System.out.println(cache.getIfPresent("username"));
+        System.out.println(cache.getIfPresent("password"));
+       // System.out.println(cache.get("222"));
+//        System.out.println(cache.get("blog", key -> {
+//            // 本地缓存没有的话，从数据库或者Redis中获取
+//            return getValue(key);
+//        }));
+
+    }
+
+    public static void main9999(String[] args)throws Exception {
+
+        //基于名字空间的UUID（MD5）
+        System.out.println(UUID.nameUUIDFromBytes("myString".getBytes("UTF-8")).toString());
+        //基于随机数的UUID
+        System.out.println(UUID.randomUUID().toString());
+    }
+
+    public static void maineeee(String[] args) {
+//
+//        String beginRq="2020-05";
+//        String endRq="2021-09";
+//        String dayStr="-01";
+//        LocalDate sdate = new LocalDate(beginRq+dayStr);
+//        LocalDate edate = new LocalDate(endRq+dayStr);
+//        List<String> list = new ArrayList<>();
+//        while (sdate.isBefore(edate)) {
+//            sdate= sdate.plusMonths(1);//向后推一个月
+//           System.out.println(sdate);
+//        }
+
+
+//        //数据准备
+//        List<Student> list = new ArrayList<>();
+//        list.add(new Student("2020-01-01",1));
+//        list.add(new Student("2020-08-08",4));
+//        list.add(new Student("2021-05-01",3));
+//        list.add(new Student("2020-11-05",5));
+//        list.add(new Student("2021-02-02",2));
+
+
+        List<UserLoginLogVo> list = new ArrayList<>();
+        list.add(new UserLoginLogVo("2020-01-01","1","1","1","1"));
+        list.add(new UserLoginLogVo("2020-08-08","1","1","1","1"));
+        list.add(new UserLoginLogVo("2021-05-01","1","1","1","1"));
+        list.add(new UserLoginLogVo("2020-01-01","1","1","1","1"));
+        list.add(new UserLoginLogVo("2021-02-02","1","1","1","1"));
+//        int nn=d1.compareTo(d2);
+//        System.out.println(nn);
+//        //使用Collections集合工具类进行排序
+        Collections.sort(list, new Comparator<UserLoginLogVo>() {
+            @Override
+            public int compare(UserLoginLogVo o1, UserLoginLogVo o2) {
+                //升序排序，降序反写
+               if(o2.getCodeName().compareTo(o1.getCodeName())==0){
+                   return -1;
+               }else{
+                    return o2.getCodeName().compareTo(o1.getCodeName());
+                }
+            }
+        });
+
+        for (UserLoginLogVo student : list) {
+            System.out.println(student.getCodeName());
+        }
+
+        /**
+         * 把要返回的东西封装个对象 然后给对象list排序
+         * https://blog.csdn.net/superdog007/article/details/54133698
+         *select sum( t.user_id) over(partition by t.user_id) from ts_online_user_login_log t
+         * where to_char(t.login_date,'yyyy-MM')='2020-01'
+         *
+         * 需不需要排序 需要排序加参数 正序倒序
+         */
+    }
+
+    public static void main99997u77(String[] args) {
+        List<String> list = new ArrayList<>();
+        list.add("1");
+        list.add("2");
+        list.add("3");
+        list.add("4");
+        list.add("5");
+        list.add("6");
+        list.add("7");
+        list.add("8");
+        list.add("9");
+        list.add("10");
+//
+//        Collections.sort(list, new Comparator<String>() {
+//            @Override
+//            public int compare(String o1, String o2) {
+//                //升序排序，降序反写
+//                if(o2.compareTo(o1)==0){
+//                    return -1;
+//                }else{
+//                    return o2.compareTo(o1);
+//                }
+//            }
+//        });
+//        for (String s : list) {
+//            System.out.println(s);
+//        }
+
+//
+//        int pageNum=2;
+//        int pageSize=3;
+//        int beginIndex=(pageNum-1)*pageSize;
+//        int endIndex=pageNum*pageSize;
+//
+//        list=list.subList(pageNum,pageSize);
+//        list.add(0,"55");
+//        for (String s : list) {
+//            System.out.println(s);
+//        }
+        String end="2021-03-14";
+        String d1="2021-11-14";
+        String begin="2021-01-14";
+//        System.out.println(d1.compareTo(d2));
+//        System.out.println(d1.compareTo(d3));
+
+        if(d1.compareTo(begin)>=0&&d1.compareTo(end)<=0){
+            System.out.println("555555!!!!!");
+        }
+
+        LocalDate date=new LocalDate("2021-03-16");
+        String monday = date.dayOfMonth().withMaximumValue().toString();
+        System.out.println(monday);
+
+        String dd="2020-01-01";
+        System.out.println(dd.substring(0,7));
+    }
+
+    public static void main(String[] args) {
+        Integer pre=10;
+        Integer now=11;
+        double pred=pre.doubleValue();
+        double nowd=now.doubleValue();
+        Double data=pred==0.0?null:(((nowd - pred) / Math.abs(pre)) * 100);
+        System.out.println(pred);
+        System.out.println(nowd);
+        System.out.println(data);
+    }
 }

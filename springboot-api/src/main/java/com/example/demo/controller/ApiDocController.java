@@ -81,4 +81,25 @@ public class ApiDocController {
                 }
                 return "ok";
         }
+
+
+        @GetMapping("getf")
+        //@Transactional(rollbackFor = Exception.class)
+        public String findef() {
+                List<personInfor> list=dataSourceTest.finddd("给对方获得返回");
+                //List<personInfor> list2=dataSourceTest.finddd("给对方获得返回");
+                if (list == null||list.isEmpty()) {
+                        return "ssssss";
+                }
+                return "ok";
+        }
+
+        @GetMapping("getf2")
+        public String getf2() {
+                List<personInfor> list=dataSourceTest.getf("给对方获得返回");
+                if (list == null||list.isEmpty()) {
+                        return "ssssss";
+                }
+                return "ok";
+        }
 }

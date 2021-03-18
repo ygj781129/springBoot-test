@@ -100,7 +100,7 @@ public interface personInforMapper {
     @Select("select * from person_infor")
     Cursor<personInfor> scan();
 
-    @Select("select * from person_infor where name= ${name}")
+    @Select("select * from person_infor where name= #{name}")
     List<personInfor> scanll(@Param("name") String name);
 
 

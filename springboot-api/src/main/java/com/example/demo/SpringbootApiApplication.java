@@ -2,6 +2,8 @@ package com.example.demo;
 
 import com.example.demo.datasourceConfig.Test1Config;
 import com.example.demo.datasourceConfig.Test2Config;
+import net.hasor.spring.boot.EnableHasor;
+import net.hasor.spring.boot.EnableHasorWeb;
 import org.apache.coyote.http11.AbstractHttp11Protocol;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -14,7 +16,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
+@EnableHasor()
+@EnableHasorWeb()
 @SpringBootApplication
 @EnableCaching//Redis注解的方式
 @MapperScan("com.example.demo.mapper")//扫描的mapper

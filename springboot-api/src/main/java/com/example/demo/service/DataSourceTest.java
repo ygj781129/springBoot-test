@@ -84,15 +84,24 @@ public class DataSourceTest {
 
 
         }
-
+        //@Transactional(rollbackFor = Exception.class)
         public List<personInfor> finddd(String name){
                 personInforExample query=new personInforExample();
                 personInforExample.Criteria criteria=query.createCriteria();
                 criteria.andNameEqualTo(name);
                 criteria.andAgeEqualTo(555);
                 List<personInfor> list=personInforMapper.selectByExample(query);
+
+                List<personInfor> list2=personInforMapper.selectByExample(query);
                return list;
         }
 
+        //@Transactional(rollbackFor = Exception.class)
+        public List<personInfor> getf(String name){
+
+                List<personInfor> list=personInforMapper.scanll(name);
+                List<personInfor> list2=personInforMapper.scanll(name);
+                return list;
+        }
 
 }
