@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/bootmy/bootmy.iml" filepath="$PROJECT_DIR$/bootmy/bootmy.iml" />
       <module fileurl="file://$PROJECT_DIR$/java-guava/java-guava.iml" filepath="$PROJECT_DIR$/java-guava/java-guava.iml" />
       <module fileurl="file://$PROJECT_DIR$/limitier-redis/limitier-redis.iml" filepath="$PROJECT_DIR$/limitier-redis/limitier-redis.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-batch/spring-batch.iml" filepath="$PROJECT_DIR$/spring-batch/spring-batch.iml" />
       <module fileurl="file://$PROJECT_DIR$/springBoot-test.iml" filepath="$PROJECT_DIR$/springBoot-test.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot-api/springboot-api.iml" filepath="$PROJECT_DIR$/springboot-api/springboot-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot-utils/springboot-utils.iml" filepath="$PROJECT_DIR$/springboot-utils/springboot-utils.iml" />

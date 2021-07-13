@@ -1,21 +1,28 @@
 package com.example.demo.controller;
 
+import cn.hutool.core.io.IoUtil;
+import cn.hutool.core.io.resource.ClassPathResource;
+import cn.hutool.poi.excel.ExcelUtil;
+import cn.hutool.poi.excel.ExcelWriter;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.example.demo.mapper.AcctUserMapper;
 import com.example.demo.mapper.TimeTestMapper;
 import com.example.demo.pojo.AcctUser;
+import com.example.demo.pojo.Student;
 import com.example.demo.pojo.TimeTest;
 import com.example.demo.pojo.TimeTestExample;
 import com.example.demo.service.DataSourceTest;
 import com.example.demo.service.ImgAddImg;
+import com.example.demo.util.ImagesToBase64;
 import com.example.demo.util.JsonFormat;
 import com.example.demo.util.RecodeUtil;
 import com.example.demo.vo.KeyValVo;
 import com.example.demo.vo.Svo;
 import com.example.demo.vo.fg;
 import com.github.pagehelper.PageHelper;
+import com.google.common.collect.Lists;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
@@ -23,16 +30,28 @@ import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.ClientAnchor;
+import org.apache.poi.ss.usermodel.Drawing;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.streaming.SXSSFDrawing;
+import org.apache.poi.xssf.streaming.SXSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFClientAnchor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.bind.annotation.*;
 
+import javax.imageio.ImageIO;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.security.Key;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -153,4 +172,91 @@ e.printStackTrace();
             BufferedImage code = ImgAddImg.createImage("https://my.oschina.net/kevin2kelly", null, false);
             ImgAddImg.rrrrr( path, code,response);
         }
+
+
+
+
+
+            /**
+             * 导出Excel
+             * @param vo
+             * @param response
+             */
+            @RequestMapping(value = "/export", method = RequestMethod.POST)
+            @ResponseBody
+            public void export(HttpServletResponse response){
+                // 通过工具类创建writer，默认创建xls格式
+                ExcelWriter writer = ExcelUtil.getWriter();
+                ServletOutputStream out= null;
+                try {
+                List<Student> list= Lists.newArrayList();;
+                Student s1=new Student();
+                s1.setName("张三");
+                s1.setSex("nan");
+                s1.setAge(12);
+                //System.out.println(":::::::::::::"+ImagesToBase64.Image2Base64("http://192.168.199.130:8081/img/11.jpg").toString());
+                Student s2=new Student();
+                s2.setName("李四");
+                s2.setSex("女");
+                s2.setAge(19);
+                list.add(s1);
+                list.add(s2);
+
+                byte[] pictureData =ImagesToBase64.Image2Base64("http://192.168.199.130:8081/img/11.jpg");
+                //写入图片
+                writePic(writer, 0, 2, pictureData, HSSFWorkbook.PICTURE_TYPE_JPEG);
+
+
+
+                //自定义标题别名
+                writer.addHeaderAlias("name", "姓名");
+                writer.addHeaderAlias("sex", "性别");
+                writer.addHeaderAlias("age", "年龄");
+
+                // 合并单元格后的标题行，使用默认标题样式
+                //writer.merge(2, "标题");
+                // 一次性写出内容，使用默认样式，强制输出标题
+                writer.write(list, true);
+
+
+                    //out为OutputStream，需要写出到的目标流
+                    //response为HttpServletResponse对象
+                    response.setContentType("application/vnd.ms-excel;charset=utf-8");
+                    //test.xls是弹出下载对话框的文件名，不能为中文，中文请自行编码
+                    response.setContentType("application/vnd.ms-excel;charset=utf-8");
+                    String name = URLEncoder.encode("运营渠道数据", "UTF-8");
+                    response.setHeader("Content-Disposition","attachment;filename="+ name +".xlsx");
+                    out = response.getOutputStream();
+                    writer.flush(out, true);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }catch (Exception e){
+                    e.printStackTrace();
+                } finally {
+                    // 关闭writer，释放内存
+                    writer.close();
+                }
+                //此处记得关闭输出Servlet流
+                IoUtil.close(out);
+            }
+
+
+
+
+
+    public void writePic(ExcelWriter writer, int x, int y, byte[] pictureData, int picType) {
+        Sheet sheet = writer.getSheet();
+        Drawing drawingPatriarch = sheet.createDrawingPatriarch();
+
+        //设置图片单元格位置
+        ClientAnchor anchor = drawingPatriarch.createAnchor(0, 0, 0, 0, x, y, x + 1, y + 1);
+        //随单元格改变位置和大小
+        anchor.setAnchorType(ClientAnchor.AnchorType.MOVE_AND_RESIZE);
+
+        //添加图片
+        int pictureIndex = sheet.getWorkbook().addPicture(pictureData, picType);
+        drawingPatriarch.createPicture(anchor, pictureIndex);
     }
+
+
+}

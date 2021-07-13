@@ -38,4 +38,16 @@ public class TestController {
                 return "我没有被限流哦，一直刷新一直在.....";
         }
 
+
+
+        @GetMapping("/index")
+        public String index() {
+                return "555555555!";
+        }
+
+        @GetMapping("/jj")
+        public String indexf() {
+                return "44444";
+        }
+
 }

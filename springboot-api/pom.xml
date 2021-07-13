@@ -107,15 +107,24 @@
 	<!--excl poi-->
 		<dependency>
 			<groupId>org.apache.poi</groupId>
-			<artifactId>poi</artifactId>
-			<version>3.13</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
-			<version>3.13</version>
+			<version>4.0.0</version>
 		</dependency>
-
+		<!--<dependency>-->
+			<!--<groupId>org.apache.poi</groupId>-->
+			<!--<artifactId>poi</artifactId>-->
+			<!--<version>3.13</version>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+			<!--<groupId>org.apache.poi</groupId>-->
+			<!--<artifactId>poi-ooxml</artifactId>-->
+			<!--<version>3.13</version>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+		<!--<groupId>org.apache.poi</groupId>-->
+		<!--<artifactId>poi-ooxml-schemas</artifactId>-->
+		<!--<version>3.17</version>-->
+		<!--</dependency>-->
 		<!-- google collections
 		<dependency>
 			<groupId>com.google.collections</groupId>
@@ -172,7 +181,7 @@
 		<dependency>
 			<groupId>cn.hutool</groupId>
 			<artifactId>hutool-all</artifactId>
-			<version>4.5.1</version>
+			<version>5.0.7</version>
 		</dependency>
 
 		<!--持久层jpa-->
@@ -201,6 +210,12 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 		</dependency>
+		<!-- rabbitMQ -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-amqp</artifactId>
+		</dependency>
+
 		<!--swagger2 相关依赖-->
 		<dependency>
 			<groupId>io.springfox</groupId>

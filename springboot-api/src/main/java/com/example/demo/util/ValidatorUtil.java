@@ -6,6 +6,8 @@ import java.util.regex.Pattern;
  * @description: 校验工具类    正则表达式校验工具
  * @author: fb
  * @create: 2021/05/20
+ *
+ * 如果这个工具类不够用 看这个  http://www.360doc.com/content/15/1126/17/9552892_516092454.shtml
  **/
 public class ValidatorUtil {
         /**
@@ -128,4 +130,17 @@ public class ValidatorUtil {
                 return Pattern.matches(REGEX_IP_ADDR, ipAddr);
         }
 
+        /**
+         * 判断是否为整数
+         * @param str 传入的字符串
+         * @return 是整数返回true,否则返回false
+         */
+
+        public static boolean isInteger(String str) {
+
+                Pattern pattern = Pattern.compile("^[-\\+]?[\\d]*$");
+
+                return pattern.matcher(str).matches();
+
+        }
 }

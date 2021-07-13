@@ -95,7 +95,7 @@ public class Java8Test {
 
     }
 
-    public static void maingg(String[] args) {
+    public static void main(String[] args) {
         Random random = new Random();
         random.ints().limit(10);//.forEach(System.out::println);
 
@@ -860,7 +860,7 @@ public class Java8Test {
         System.out.println(dd.substring(0,7));
     }
 
-    public static void main(String[] args) {
+    public static void main333333(String[] args) {
         Integer pre=10;
         Integer now=11;
         double pred=pre.doubleValue();

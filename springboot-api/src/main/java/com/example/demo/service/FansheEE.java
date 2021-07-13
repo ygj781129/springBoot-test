@@ -9,6 +9,8 @@ import org.apache.commons.lang3.RandomStringUtils;
 
 import java.lang.reflect.*;
 import java.security.MessageDigest;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,9 +24,20 @@ public class FansheEE {
 
 
         public static void main(String[] args) {
-                System.out.println(MD5Util.getMD52("123456"));
-                System.out.println(MD5Util.MD5("123456"));
-                System.out.println(MD5Util.getMD53("123456",false,32));
+//                System.out.println(MD5Util.getMD52("123456"));
+//                System.out.println(MD5Util.MD5("123456"));
+//                System.out.println(MD5Util.getMD53("123456",false,32));
+
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+                String nn="2021-01-01";
+                try {
+                        System.out.println(sdf.parse(nn));
+                } catch (ParseException e) {
+                        e.printStackTrace();
+                }
+
+
         }
 
         /**
@@ -209,6 +222,9 @@ public class FansheEE {
                 }
                 return cls;
         }
+
+
+
 }
 
 

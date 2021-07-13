@@ -25,15 +25,15 @@
 <form action="http://localhost:8081/springboottest/excel/exportExcel" method="get" enctype="multipart/form-data">
     <p><input type="submit" value="导出"/></p>
 </form>
-<form action="http://localhost:8080/operationChannel/export" method="post" enctype="multipart/form-data">
+<form action="http://localhost:8080/userLogStatistics/export?menuName=算法" method="get" enctype="multipart/form-data">
     <p><input type="submit" value="导出6666"/></p>
 </form>
 
-<form action="http://localhost:8081/excel/readExcel" enctype="multipart/form-data" method="post">
+<form action="http://localhost:8080/allDataN/uploadExcel/1" enctype="multipart/form-data" method="post">
     <br/>
     <br/>
-    <button type="submit" class="btn btn-primary">导入</button>
-    <input class="form-input" type="file" name="file"/>
+    <button type="submit" class="btn btn-primary">导入99999</button>
+    <input class="form-input" type="file" name="excelFile"/>
 </form>
 
 

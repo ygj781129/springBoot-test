@@ -11,6 +11,7 @@
         <option value="$PROJECT_DIR$/token-bucket/pom.xml" />
         <option value="$PROJECT_DIR$/token-bucket-redis/pom.xml" />
         <option value="$PROJECT_DIR$/limitier-redis/pom.xml" />
+        <option value="$PROJECT_DIR$/spring-batch/pom.xml" />
       </list>
     </option>
   </component>
