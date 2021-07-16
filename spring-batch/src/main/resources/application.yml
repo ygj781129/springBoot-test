@@ -1,0 +1,18 @@
+
+# \u914D\u7F6E\u7AEF\u53E3
+server:
+  port: 8080
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/hotsad?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    # \u6307\u5B9A\u6570\u636E\u5E93\u8868\u7684\u4F4D\u7F6E
+    schema: classpath:/org/springframework/batch/core/schema-oracle10g.sql
+  # \u542F\u52A8\u65F6\u521B\u5EFA\u8868,\u540E\u7EED\u53EF\u4EE5\u5C06always\u4FEE\u6539\u6210never
+  batch:
+    initialize-schema: always
+  main:
+    allow-bean-definition-overriding: true
